@@ -1,0 +1,25 @@
+{
+  "name": "chatting",
+  "description": "online chat",
+  "main": "server.js",
+  "authors": [
+    "ma-lihui"
+  ],
+  "license": "ISC",
+  "keywords": [
+    "express",
+    "socket"
+  ],
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^3.2.1",
+    "jquery.nicescroll": "nicescroll#^3.6.8"
+  }
+}
