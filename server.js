@@ -8,7 +8,7 @@ var querystring = require('querystring');
 var app = express();
 //创建一个服务器
 server = http.createServer(app);
-app.use(express.static(__dirname));
+app.use(express.static(__dirname + '/dist'));
 //监听80端口
 server.listen(88);
 console.log('server started');
