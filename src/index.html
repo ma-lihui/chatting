@@ -1,27 +1,33 @@
 <!DOCTYPE html>
-<html ng-app="chat" ng-controller="live_chat">
+<html lang="en" ng-app="chat" ng-controller="live_chat">
 <head>
     <meta charset="UTF-8">
     <title>Live chat </title>
+    <!-- build:css css/main.min.css -->
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/style.css">
+    <!-- endbuild -->
 </head>
 
 <body>
-<div class="mask" id="mask">
-    <div class="input_user">
-        <input type="text" ng-model="user" placeholder="请输入昵称">
-        <input type="submit" ng-click="submit_user()">
+<div class="mask" id="mask" ng-hide="login">
+    <div class="module form-module">
+        <div class="toggle"></div>
+        <div class="form">
+            <form>
+                <input type="text" ng-model="user" placeholder="请输入昵称"/>
+                <button ng-click="submit_user()">登 录</button>
+            </form>
+        </div>
     </div>
 </div>
 <div class="ui">
     <div class="left-menu">
         <form action="#" class="search">
-            <input placeholder="search..." type="search" name="" id="">
-            <input type="submit" value="&#xf002;">
+            <input placeholder="搜索..." ng-model="search" type="search" name="" id="">
         </form>
         <menu class="list-friends">
-            <li ng-repeat="l in list_friends">
+            <li ng-repeat="l in list_friends | filter : search">
                 <img width="50" height="50" ng-src={{l.img}}>
                 <div class="info">
                     <div class="user">{{l.user}}</div>
@@ -36,8 +42,8 @@
                 <img width="50" height="50" src="http://cs625730.vk.me/v625730358/1126a/qEjM1AnybRA.jpg">
             </div>
             <div class="info">
-                <div class="name">node</div>
-                <div class="count">already 1 902 messages</div>
+                <div class="name">chat room</div>
+                <!--<div class="count">902 messages</div>-->
             </div>
             <i class="fa fa-star"></i>
         </div>
@@ -49,45 +55,26 @@
                 </div>
                 <div class="message">{{i.msg}}</div>
             </li>
-            <!--<li class="i">-->
-                <!--<div class="head">-->
-                    <!--<span class="time">10:13 AM, Today</span>-->
-                    <!--<span class="name">me</span>-->
-                <!--</div>-->
-                <!--<div class="message">)</div>-->
-            <!--</li>-->
-            <!--<li class="i">-->
-                <!--<div class="head">-->
-                    <!--<span class="time">10:14 AM, Today</span>-->
-                    <!--<span class="name">me</span>-->
-                <!--</div>-->
-                <!--<div class="message">word..</div>-->
-            <!--</li>-->
-            <!--<li class="friend-with-a-SVAGina">-->
-                <!--<div class="head">-->
-                    <!--<span class="name">Jerry</span>-->
-                    <!--<span class="time">10:15 AM, Today</span>-->
-                <!--</div>-->
-                <!--<div class="message">?</div>-->
-            <!--</li>-->
         </ul>
         <div class="write-form">
-            <textarea placeholder="Type your message" name="e" id="texxt" rows="2" ng-model="send_message" ng-keypress="key($event)"></textarea>
+            <textarea placeholder="说点什么..." name="e" id="texxt" rows="2" ng-model="send_message"
+                      ng-keypress="key($event)"></textarea>
             <i class="fa fa-picture-o"></i>
             <i class="fa fa-file-o"></i>
-            <span class="send" id="sendBtn" ng-click="send()">Send</span>
+            <span class="send" id="sendBtn" ng-click="send()">发 送</span>
         </div>
     </div>
 </div>
-<script src="js/angular.js"></script>
-<!-- build:js lib/jquery.min.js -->
-<script src='js/jquery.js'></script>
+<!-- build:js lib/lib.min.js -->
+<script src="./bower_components/angular/angular.js"></script>
+<script src='./bower_components/jquery/dist/jquery.js'></script>
+<script src='./bower_components/jquery.nicescroll/jquery.nicescroll.min.js'></script>
+<script src="./bower_components/socket.io-client/dist/socket.io.js"></script>
 <!-- endbuild -->
-<script src='js/nicescroll.js'></script>
+<!-- build:js js/main.min.js -->
 <script src="js/index.js"></script>
-<!--<script src = "/socket.io/socket.io.js"></script>-->
-<script src="js/socket.io.js"></script>
 <script src="controller/chat_controller.js"></script>
 <script src="js/filter.js"></script>
+<!-- endbuild -->
 </body>
 </html>

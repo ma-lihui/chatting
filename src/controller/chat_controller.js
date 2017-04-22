@@ -3,29 +3,20 @@
  */
 angular.module('chat',[])
     .controller('live_chat',["$scope",function ($scope) {
-        console.log(1111111);
-        var showMask = function (){
-            $("#mask").css("height",$(document).height());
-            $("#mask").css("width",$(document).width());
-            $("#mask").show();
-        };
-        showMask();
-        //隐藏遮罩层
-        var hideMask = function (){
-            $("#mask").hide();
-        };
         $scope.submit_user = function () {
-            socket.emit('login', $scope.user);
-            hideMask();
+            if ($scope.user) {
+                socket.emit('login', $scope.user);
+                $scope.login = true;
+            }
         };
         var claerResizeScroll = function() {
             $(".messages").getNiceScroll(0).resize();
-            return $(".messages").getNiceScroll(0).doScrollTop(999999, 999);
+            $(".messages").getNiceScroll(0).doScrollTop(999999, 999);
         };
         var socket = io.connect('http://localhost:88');
         $scope.send = function () {
             if($scope.send_message!=''&&$scope.send_message!=undefined) {
-                console.log($scope.message);
+                // console.log($scope.message);
                 var msg_data = {
                     user:$scope.user,
                     msg:$scope.send_message
@@ -44,7 +35,7 @@ angular.module('chat',[])
             claerResizeScroll();
         };
         socket.on('broadcast',function (data) {
-            console.log(data);
+            // console.log(data);
             if(data.user!=$scope.user){
                 $scope.message.push(data);
                 $scope.$apply();
@@ -61,19 +52,13 @@ angular.module('chat',[])
         };
         // $scope.list_friends = [];
         socket.on('user',function (user) {
-            console.log(user);
+            // console.log(user);
             $scope.list_friends = user;
             $scope.$apply();
         });
 
-        $scope.message = [
-            {
-                user:"node",
-                time:new Date().getHours()+':'+new Date().getMinutes()+':'+new Date().getSeconds(),
-                msg:"hello world",
-                me:false
-            }
-        ];
+        $scope.message = [];
+
     }]).filter('online_status',function () {
     return function (status) {
         if(status==1){
