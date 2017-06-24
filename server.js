@@ -7,7 +7,7 @@ var request = require('request');
 var querystring = require('querystring');
 var moment = require('moment');
 var app = express();
-const PORT = 88;    //端口
+const PORT = 3000;    //端口
 //创建一个服务器
 server = http.createServer(app);
 app.use(express.static(__dirname + '/dist'));
@@ -21,7 +21,7 @@ io.on('connection', function(socket) {
     socket.on('send', function(data) {
         //将消息输出到控制台
         console.log(moment().format('HH:mm:ss') + '  ' + data.user + ":" + data.msg);
-        if(data.msg.substring(0,1)=="#"){
+        if(data.msg.substring(0,1)==="#"){
             reply_by_tuling(data.msg.substring(1,data.length));
         }
         var reply = {
@@ -63,8 +63,7 @@ var reply_by_tuling = function (message) {
     };
     request.post(url,{form:formData} ,function (error, response, body) {
         io.sockets.emit('log', response);
-        if (!error && response.statusCode == 200) {
-            // console.log(body);// Show the HTML for the Google homepage.
+        if (!error && response.statusCode === 200) {
             var reply = {
                 user:"机器人小灵",
                 time: moment().format('HH:mm:ss'),

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="chat" ng-controller="live_chat">
+<head>
+    <meta charset="UTF-8">
+    <title>Live chat </title>
+    <link rel="stylesheet" href="css/main.min.css">
+</head>
+
+<body>
+<div class="mask" id="mask" ng-hide="login">
+    <div class="module form-module">
+        <div class="toggle"></div>
+        <div class="form">
+            <form>
+                <input type="text" ng-model="user" placeholder="请输入昵称"/>
+                <button ng-click="submit_user()">登 录</button>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="ui">
+    <div class="left-menu">
+        <form action="#" class="search">
+            <input placeholder="搜索..." ng-model="search" type="search" name="" id="">
+        </form>
+        <menu class="list-friends">
+            <li ng-repeat="l in list_friends | filter : search">
+                <img width="50" height="50" ng-src={{l.img}}>
+                <div class="info">
+                    <div class="user">{{l.user}}</div>
+                    <div class="status" ng-class="{1:'on',0:'off'}[l.status]">{{l.status|online_status}}</div>
+                </div>
+            </li>
+        </menu>
+    </div>
+    <div class="chat">
+        <div class="top">
+            <div class="avatar">
+                <img width="50" height="50" src="http://cs625730.vk.me/v625730358/1126a/qEjM1AnybRA.jpg">
+            </div>
+            <div class="info">
+                <div class="name">chat room</div>
+                <!--<div class="count">902 messages</div>-->
+            </div>
+            <i class="fa fa-star"></i>
+        </div>
+        <ul class="messages">
+            <li ng-class="{true:'i',false:'other'}[i.me]" ng-repeat="i in message">
+                <div class="head">
+                    <span class="time">{{i.time}}</span>
+                    <span class="name">{{i.user}}</span>
+                </div>
+                <div class="message">{{i.msg}}</div>
+            </li>
+        </ul>
+        <div class="write-form">
+            <textarea placeholder="说点什么..." name="e" id="texxt" rows="2" ng-model="send_message"
+                      ng-keypress="key($event)"></textarea>
+            <i class="fa fa-picture-o"></i>
+            <i class="fa fa-file-o"></i>
+            <span class="send" id="sendBtn" ng-click="send()">发 送</span>
+        </div>
+    </div>
+</div>
+<script src="lib/lib.min.js"></script>
+<script src="js/main.min.js"></script>
+</body>
+</html>

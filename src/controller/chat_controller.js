@@ -13,7 +13,7 @@ angular.module('chat',[])
             $(".messages").getNiceScroll(0).resize();
             $(".messages").getNiceScroll(0).doScrollTop(999999, 999);
         };
-        var socket = io.connect('http://localhost:88');
+        var socket = io.connect('http://localhost:3000');
         $scope.send = function () {
             if($scope.send_message!=''&&$scope.send_message!=undefined) {
                 // console.log($scope.message);
